@@ -56,6 +56,11 @@ Allocation is acceptable during loading, setup, replay decoding, asset
 preparation, and tooling. It should not be required for ordinary simulation
 steps such as movement, combat, spawning, pathing, collision, or scoring.
 
+AI chat strings are the main exception. Policies and games may allocate strings
+for chat prompts, model responses, player messages, and transcript logging.
+Those strings should still be bounded, recorded when they affect gameplay, and
+kept separate from hot numeric sim loops where possible.
+
 ## Goals
 
 - Run many games with generic WASM and native clients.
@@ -89,6 +94,8 @@ steps such as movement, combat, spawning, pathing, collision, or scoring.
 - Sim state must not depend on platform-specific hash, pointer, random, time,
   or thread behavior.
 - Sim ticks should use fixed-capacity storage and avoid memory allocation.
+- AI chat strings are the main allocation exception and must be bounded and
+  replay-recorded when they affect gameplay.
 
 ## Shared Libraries
 

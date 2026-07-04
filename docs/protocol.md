@@ -19,6 +19,8 @@ state, not a final binary encoding.
   scheduling.
 - Sims should favor fixed-capacity containers and avoid memory allocation during
   ticks.
+- AI chat strings are the main allocation exception. They must be bounded and
+  replay-recorded when they affect gameplay.
 
 ## Game Descriptor
 

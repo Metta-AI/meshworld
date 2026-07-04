@@ -38,6 +38,13 @@ easier to test, hash, replay, and debug. Floats may be used inside the client
 for rendering and interpolation, but they should not become gameplay truth or
 protocol state.
 
+Simulation code must avoid platform-dependent behavior. It should not depend on
+hash table iteration order, pointer addresses, pointer hashes, randomized hash
+seeds, nondeterministic random number generators, Unix time, wall-clock time, or
+thread scheduling. Any randomness used by the sim must come from an explicit
+seed and a deterministic RNG. Any ordering that affects sim state must be
+explicitly sorted or stored in stable arrays.
+
 ## Goals
 
 - Run many games with generic WASM and native clients.
@@ -68,6 +75,8 @@ protocol state.
 - `results.json` output is required.
 - A MeshWorld game must fit the Coworld spec, not define a parallel runtime
   contract.
+- Sim state must not depend on platform-specific hash, pointer, random, time,
+  or thread behavior.
 
 ## Shared Libraries
 

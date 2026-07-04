@@ -14,6 +14,9 @@ state, not a final binary encoding.
 - All clients support the full protocol feature set.
 - Games omit messages for features they do not use.
 - Floats are allowed only as local client render details, never wire state.
+- Sim state must not depend on hash table order, pointer addresses, pointer
+  hashes, nondeterministic random numbers, Unix time, wall-clock time, or thread
+  scheduling.
 
 ## Game Descriptor
 

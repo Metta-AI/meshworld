@@ -20,7 +20,7 @@ state, not a final binary encoding.
 - Sims should favor fixed-capacity containers and avoid memory allocation during
   ticks.
 - AI chat strings are the main allocation exception. They must be bounded and
-  replay-recorded when they affect gameplay.
+  always replay-recorded and input-hashed.
 
 ## Game Descriptor
 
@@ -734,6 +734,7 @@ ReplayHeader
 ReplayBody
   initialState
   inputStream
+  chatInputStream
   simDeltas
   renderDeltas
   soundDeltas
@@ -743,6 +744,10 @@ ReplayBody
 
 The replay must store all sim chunk data or immutable references to exact
 chunk hashes.
+
+Chat is input. Chat messages, prompts, and model responses that are visible to
+or consumed by the game must be stored in `chatInputStream` and included in the
+per-tick input hash.
 
 ## Results
 

@@ -58,8 +58,8 @@ steps such as movement, combat, spawning, pathing, collision, or scoring.
 
 AI chat strings are the main exception. Policies and games may allocate strings
 for chat prompts, model responses, player messages, and transcript logging.
-Those strings should still be bounded, recorded when they affect gameplay, and
-kept separate from hot numeric sim loops where possible.
+Chat is input. Chat strings must be bounded, recorded in replays, included in
+input hashes, and kept separate from hot numeric sim loops where possible.
 
 ## Goals
 
@@ -95,7 +95,7 @@ kept separate from hot numeric sim loops where possible.
   or thread behavior.
 - Sim ticks should use fixed-capacity storage and avoid memory allocation.
 - AI chat strings are the main allocation exception and must be bounded and
-  replay-recorded when they affect gameplay.
+  always replay-recorded and input-hashed.
 
 ## Shared Libraries
 
@@ -691,10 +691,15 @@ Replay
   seed
   initialChunks
   inputStream
+  chatInputStream
   simDeltas
   renderDeltas
   tickHashes
 ```
+
+Chat input belongs to replay input, even when it comes from an AI policy. Chat
+messages, prompts, and model responses that are visible to or consumed by the
+game must be recorded and included in `inputHash`.
 
 Per-tick hashes should be available for desync debugging:
 

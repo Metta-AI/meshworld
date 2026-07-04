@@ -17,6 +17,8 @@ state, not a final binary encoding.
 - Sim state must not depend on hash table order, pointer addresses, pointer
   hashes, nondeterministic random numbers, Unix time, wall-clock time, or thread
   scheduling.
+- Sims should favor fixed-capacity containers and avoid memory allocation during
+  ticks.
 
 ## Game Descriptor
 

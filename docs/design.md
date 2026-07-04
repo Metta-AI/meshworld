@@ -45,6 +45,17 @@ thread scheduling. Any randomness used by the sim must come from an explicit
 seed and a deterministic RNG. Any ordering that affects sim state must be
 explicitly sorted or stored in stable arrays.
 
+Simulation code should also avoid runtime allocation during ticks. Games should
+favor fixed-size containers with explicit capacities, such as 16 players, 100
+bullets, 256 particles that affect gameplay, or 4096 active tiles. Capacity
+limits should be part of game config or constants, not emergent side effects of
+dynamic containers. The tick loop should reuse preallocated arrays, free lists,
+ring buffers, and stable integer handles.
+
+Allocation is acceptable during loading, setup, replay decoding, asset
+preparation, and tooling. It should not be required for ordinary simulation
+steps such as movement, combat, spawning, pathing, collision, or scoring.
+
 ## Goals
 
 - Run many games with generic WASM and native clients.
@@ -77,6 +88,7 @@ explicitly sorted or stored in stable arrays.
   contract.
 - Sim state must not depend on platform-specific hash, pointer, random, time,
   or thread behavior.
+- Sim ticks should use fixed-capacity storage and avoid memory allocation.
 
 ## Shared Libraries
 

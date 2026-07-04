@@ -184,6 +184,11 @@ Ports should prefer the low-level Treeform stack used by MeshWorld:
 - `vmath`.
 - `gltf`.
 - `slappy`.
+- `fluffy` for profiling and trace timeline inspection.
+
+Ports should emit traces that Fluffy can read. Profiling should cover the game
+loop, protocol encode/decode, pathfinding, rendering, policies, replay writing,
+and `results.json` writing.
 
 ## Debugging
 

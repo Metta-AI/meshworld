@@ -110,10 +110,15 @@ possible. These libraries are the preferred low-level foundation:
 - `vmath` for vector and matrix math.
 - `gltf` for glTF parsing, models, materials, nodes, and animations.
 - `slappy` for low-level audio.
+- `fluffy` as the primary profiler and trace timeline viewer.
 
 The WASM and native clients should share as much code as possible above this
 layer. Platform differences should be isolated behind small compile-time
 backends, not duplicated game logic.
+
+Profiling should be part of the normal development loop. MeshWorld games,
+clients, libraries, and policies should emit traces that Fluffy can inspect,
+so performance work starts from concrete timelines instead of guesswork.
 
 ## Coworld Spec Compatibility
 
